@@ -187,7 +187,7 @@ int c8_cycle(C8* c8)
       return EXIT_FAILURE;
     }
 
-  *c8->PC = (uint16_t)0xE5D1;
+  *c8->PC = (uint16_t)0x9EEA;
   
   z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
   nnn = htons(*c8->PC) & 0x0FFF;
@@ -340,6 +340,20 @@ int c8_cycle(C8* c8)
       }
     case 0xE:
       {
+	switch(kk)
+	  {
+	  case 0x9E:
+	    {
+	      printf("SKP  V[0x%02x]\n",x);
+	      break;
+	    }
+	    
+	  case 0xA1:
+	    {
+	      printf("SKNP  V[0x%02x]\n",x);
+	      break;
+	    }
+	  }
 	break;
       }
     case 0xF:
