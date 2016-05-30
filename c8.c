@@ -5,7 +5,9 @@
 
 
 #include <stdint.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "c8.h"
 
 
@@ -58,25 +60,78 @@ uint8_t fonts[C8_FONTS][C8_FONT_SIZE] = {
 };
 
 
-int main()
-{
-  C8 c8;
-  int i,j,k;
 
-  for(i=0;i<C8_FONTS;i++)
+C8* c8_create(void)
+{
+  C8* c8;
+
+  /* Allocate structure */
+  c8 = (C8*)malloc(sizeof(C8));
+  if (c8 == NULL)
     {
-      for(j=0;j<C8_FONT_SIZE;j++)
-	{
-	  for(k=0;k<8;k++)
-	    {
-	      printf("%c", fonts[i][j] & (((uint8_t)1)<<(7-k)) ? '*' : ' ');
-	    }
-	  printf("\n");
-	   
-	}
-      printf("\n\n");
+      return NULL;
+    }
+
+  /* Allocate RAM */
+  c8->memory = (uint8_t*)malloc(C8_MEMORY_SIZE*sizeof(uint8_t));
+  if (c8->memory == NULL)
+    {
+      free(c8);
+      return NULL;
+    }
+
+  
+  /* Copy fonts */
+  memcpy(c8->memory+C8_FONT_OFFSET, fonts, C8_FONTS * C8_FONT_SIZE);
+
+  return c8;
+  
+}
+
+
+int c8_delete(C8* c8)
+{
+  if (c8 != NULL)
+    {
+      free(c8->memory);
+      free(c8);
+      return EXIT_SUCCESS;
+    }
+
+  return EXIT_FAILURE;
+}
+
+
+void print_font(C8* c8, uint8_t n)
+{
+  int j,k;
+  
+  if (n>0xF)
+    {
+      return;
     }
   
+  for(j=0;j<C8_FONT_SIZE;j++)
+    {
+      for(k=0;k<C8_FONT_HEIGHT;k++)
+	{
+	  printf("%c", *(c8->memory+C8_FONT_OFFSET+n*C8_FONT_SIZE+j) & (((uint8_t)1)<<(7-k)) ? '*' : ' ');
+	}
+      printf("\n");
+      
+    }
+  
+}
+
+int main()
+{
+  C8* c8;
+ 
+  c8 = c8_create();
+
+  print_font(c8, 0xD); 
+  
+  c8_delete(c8);
   
   return 0;
 }

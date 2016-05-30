@@ -32,6 +32,8 @@ typedef struct _C8
 } C8;
 
 
+C8* c8_create(void);
+int c8_delete(C8*);
 
 
 #endif
