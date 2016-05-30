@@ -187,7 +187,7 @@ int c8_cycle(C8* c8)
       return EXIT_FAILURE;
     }
 
-  *c8->PC = (uint16_t)0x9EEA;
+  *c8->PC = (uint16_t)0xA1EA;
   
   z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
   nnn = htons(*c8->PC) & 0x0FFF;
