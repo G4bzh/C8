@@ -23,7 +23,7 @@ typedef struct _C8
   uint16_t I;                       /* Memory Register */
   uint8_t delay;                    /* Delay Timer Register */
   uint8_t sound;                    /* Sound Timer Register */
-  uint16_t PC;                      /* Progranm Counter */
+  uint16_t* PC;                     /* Progranm Counter */
   uint16_t stack[C8_STACK_SIZE];    /* Stack */
   uint8_t SP;                       /* Stack Pointer */
   uint8_t screen[C8_SCREEN_SIZE];   /* Display */
@@ -36,5 +36,6 @@ typedef struct _C8
 C8* c8_create(void);
 int c8_delete(C8*);
 int c8_load(C8*, const char*);
+int c8_cycle(C8*);
 
 #endif

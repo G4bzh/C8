@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <arpa/inet.h>
 #include "c8.h"
 
 
@@ -161,12 +162,130 @@ int c8_load(C8* c8, const char* filename)
       fclose(f);
       return EXIT_FAILURE;
     }
+
+  /* Set PC */
+  c8->PC = (uint16_t*)(c8->memory+C8_START_OFFSET);
   
   fclose(f);  
   
   return EXIT_SUCCESS;
 }
 
+
+/*
+ * Do a cycle
+ *
+ */
+
+int c8_cycle(C8* c8)
+{
+  uint16_t nnn;
+  uint8_t n,x,y,z,kk;
+  
+  if (c8==NULL)
+    {
+      return EXIT_FAILURE;
+    }
+
+  *c8->PC = (uint16_t)0xEE12;
+  
+  z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
+  nnn = htons(*c8->PC) & 0x0FFF;
+  n = (uint8_t)(nnn & 0x000F);
+  kk = (uint8_t)(nnn & 0x00FF);
+  y = ((kk & 0xF0)>>4);
+  x = (uint8_t)((nnn & 0x0F00)>>4);
+
+  printf("0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x \n",htons(*c8->PC),z,nnn,n,kk,y,x);
+
+  switch(z)
+    {
+    case 0x0:
+      {
+	switch(nnn)
+	  {
+	  case 0x0E0:
+	    {
+	      printf("CLS\n");
+	      break;
+	    }
+	  case 0x0EE:
+	    {
+	      printf("RET\n");
+	      break;
+	    }  
+	  }
+	break;
+      }
+    case 0x1:
+      {
+	printf("JMP 0x%04x\n",nnn);
+	break;
+      }
+    case 0x2:
+      {
+	break;
+      }
+    case 0x3:
+      {
+	break;
+      }
+    case 0x4:
+      {
+	break;
+      }
+    case 0x5:
+      {
+	break;
+      }
+    case 0x6:
+      {
+	break;
+      }
+    case 0x7:
+      {
+	break;
+      }
+     case 0x8:
+      {
+	break;
+      }
+    case 0x9:
+      {
+	break;
+      }
+    case 0xA:
+      {
+	break;
+      }
+    case 0xB:
+      {
+	break;
+      }
+    case 0xC:
+      {
+	break;
+      }
+    case 0xD:
+      {
+	break;
+      }
+    case 0xE:
+      {
+	break;
+      }
+    case 0xF:
+      {
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+
+  return EXIT_SUCCESS;
+}
 
 
 /*
@@ -210,12 +329,12 @@ int main()
  
   c8 = c8_create();
 
-  print_font(c8, 0xA);
-
   if (c8_load(c8,"./roms/LOGO") == EXIT_SUCCESS)
     {
-      printf("ROM Loaded ! First 2 bytes:  0x%02x%02x\n", *(c8->memory+C8_START_OFFSET), *(c8->memory+C8_START_OFFSET+1));
+      printf("ROM Loaded !\n");
     }
+
+  c8_cycle(c8);
   
   c8_delete(c8);
   
