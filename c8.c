@@ -187,14 +187,14 @@ int c8_cycle(C8* c8)
       return EXIT_FAILURE;
     }
 
-  *c8->PC = (uint16_t)0xEE12;
+  *c8->PC = (uint16_t)0xE5D1;
   
   z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
   nnn = htons(*c8->PC) & 0x0FFF;
   n = (uint8_t)(nnn & 0x000F);
   kk = (uint8_t)(nnn & 0x00FF);
   y = ((kk & 0xF0)>>4);
-  x = (uint8_t)((nnn & 0x0F00)>>4);
+  x = (uint8_t)((nnn & 0x0F00)>>8);
 
   printf("0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x \n",htons(*c8->PC),z,nnn,n,kk,y,x);
 
@@ -224,50 +224,118 @@ int c8_cycle(C8* c8)
       }
     case 0x2:
       {
+	printf("CALL 0x%04x\n",nnn);
 	break;
       }
     case 0x3:
       {
+	printf("SE V[0x%02x], 0x%02x\n",x,kk);
 	break;
       }
     case 0x4:
       {
+	printf("SNE V[0x%02x], 0x%02x\n",x,kk);
 	break;
       }
     case 0x5:
       {
+	printf("SE V[0x%02x], V[0x%02x]\n",x,y);
 	break;
       }
     case 0x6:
       {
+	printf("LD V[0x%02x], 0x%02x\n",x,kk);
 	break;
       }
     case 0x7:
       {
+	printf("ADD V[0x%02x], 0x%02x\n",x,kk);
 	break;
       }
      case 0x8:
       {
+	switch(n)
+	  {
+	  case 0x0:
+	    {
+	      printf("LD V[0x%02x], V[0x%02x]\n",x,y);
+	      break;
+	    }
+
+	  case 0x1:
+	    {
+	      printf("OR V[0x%02x], V[0x%02x]\n",x,y);
+	      break;
+	    }
+
+	  case 0x2:
+	    {
+	      printf("AND V[0x%02x], V[0x%02x]\n",x,y);
+	      break;
+	    }	    
+
+	  case 0x3:
+	    {
+	      printf("XOR V[0x%02x], V[0x%02x]\n",x,y);
+	      break;
+	    }
+
+	  case 0x4:
+	    {
+	      printf("ADD V[0x%02x], V[0x%02x]\n",x,y);
+	      break;
+	    }	    
+
+	  case 0x5:
+	    {
+	      printf("SUB V[0x%02x], V[0x%02x]\n",x,y);
+	      break;
+	    }
+
+	  case 0x6:
+	    {
+	      printf("SHR V[0x%02x], V[0x%02x]\n",x,y);
+	      break;
+	    }	   
+
+	  case 0x7:
+	    {
+	      printf("SUBN V[0x%02x], V[0x%02x]\n",x,y);
+	      break;
+	    }
+
+	  case 0xE:
+	    {
+	      printf("SHL V[0x%02x], V[0x%02x]\n",x,y);
+	      break;
+	    }	    
+	    
+	  }
 	break;
       }
     case 0x9:
       {
+	printf("SNE V[0x%02x], V[0x%02x]\n",x,y);
 	break;
       }
     case 0xA:
       {
+	printf("LD I, 0x%04x\n",nnn);
 	break;
       }
     case 0xB:
       {
+	printf("JP V[0], 0x%04x\n",nnn);	
 	break;
       }
     case 0xC:
       {
+	printf("RND V[0x%02x], 0x%02x\n",x,kk); 
 	break;
       }
     case 0xD:
       {
+	printf("DRW  V[0x%02x],  V[0x%02x], 0x%02x\n",x,y,n);
 	break;
       }
     case 0xE:
