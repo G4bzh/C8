@@ -122,6 +122,52 @@ int c8_delete(C8* c8)
 }
 
 
+/*
+ * Load a ROM in RAM
+ *
+ */
+
+int c8_load(C8* c8, const char* filename)
+{
+  FILE* f;
+  long fsize;
+    
+  if (c8 == NULL || filename == NULL)
+    {
+      return EXIT_FAILURE;
+    }
+
+  f = fopen(filename,"r");
+  if (f == NULL)
+    {
+      return EXIT_FAILURE;
+    }
+
+  /* Get file size */
+  fseek(f, 0L, SEEK_END);
+  fsize = ftell(f);
+  fseek(f, 0L, SEEK_SET);
+
+  /* Check size */
+  if ( fsize > (C8_MEMORY_SIZE - C8_START_OFFSET) )
+    {
+      fclose(f);
+      return EXIT_FAILURE;
+    }
+  
+  /* Load ROM in memory */
+  if ( fread(c8->memory+C8_START_OFFSET,fsize,1,f) != 1 )
+    {
+      fclose(f);
+      return EXIT_FAILURE;
+    }
+  
+  fclose(f);  
+  
+  return EXIT_SUCCESS;
+}
+
+
 
 /*
  * Print a hexa font (DEBUG)
@@ -164,7 +210,12 @@ int main()
  
   c8 = c8_create();
 
-  print_font(c8, 0xA); 
+  print_font(c8, 0xA);
+
+  if (c8_load(c8,"./roms/LOGO") == EXIT_SUCCESS)
+    {
+      printf("ROM Loaded ! First 2 bytes:  0x%02x%02x\n", *(c8->memory+C8_START_OFFSET), *(c8->memory+C8_START_OFFSET+1));
+    }
   
   c8_delete(c8);
   
