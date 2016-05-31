@@ -187,7 +187,7 @@ int c8_cycle(C8* c8)
       return EXIT_FAILURE;
     }
 
-  *c8->PC = (uint16_t)0xA1EA;
+  *c8->PC = (uint16_t)0x4518;
   
   z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
   nnn = htons(*c8->PC) & 0x0FFF;
@@ -213,7 +213,13 @@ int c8_cycle(C8* c8)
 	    {
 	      printf("RET\n");
 	      break;
-	    }  
+	    }
+
+	  default:
+	    {
+	      printf("Unknow 0x0 Instruction\n");
+	      break;
+	    }	    
 	  }
 	break;
       }
@@ -308,6 +314,12 @@ int c8_cycle(C8* c8)
 	    {
 	      printf("SHL V[0x%02x], V[0x%02x]\n",x,y);
 	      break;
+	    }
+
+	  default:
+	    {
+	      printf("Unknow 0x8 Instruction\n");
+	      break;
 	    }	    
 	    
 	  }
@@ -353,15 +365,86 @@ int c8_cycle(C8* c8)
 	      printf("SKNP  V[0x%02x]\n",x);
 	      break;
 	    }
+
+	  default:
+	    {
+	      printf("Unknow 0xE Instruction\n");
+	      break;
+	    }
+	    
 	  }
 	break;
       }
     case 0xF:
       {
+	switch(kk)
+	  {
+	  case 0x07:
+	    {
+	      printf("LD  V[0x%02x], DT\n",x);
+	      break;
+	    }
+
+	  case 0x0A:
+	    {
+	      printf("LD  V[0x%02x], K\n",x);
+	      break;
+	    }
+
+	  case 0x15:
+	    {
+	      printf("LD  DT, V[0x%02x]\n",x);
+	      break;
+	    }
+	    
+	  case 0x18:
+	    {
+	      printf("LD  ST,V[0x%02x]\n",x);
+	      break;
+	    }
+
+	  case 0x1E:
+	    {
+	      printf("ADD I, V[0x%02x]\n",x);
+	      break;
+	    }
+
+	  case 0x29:
+	    {
+	      printf("LD F, V[0x%02x]\n",x);
+	      break;
+	    }
+
+	  case 0x33:
+	    {
+	      printf("LD B, V[0x%02x]\n",x);
+	      break;
+	    }
+
+	  case 0x55:
+	    {
+	      printf("LD [I], V[0x%02x]\n",x);
+	      break;
+	    }	    
+
+	  case 0x65:
+	    {
+	      printf("LD V[0x%02x], [I]\n",x);
+	      break;
+	    }
+
+	  default:
+	    {
+	      printf("Unknow 0xF Instruction\n");
+	      break;
+	    }
+	    
+	  }
 	break;
       }
     default:
       {
+	printf("Unknow Instruction\n");
 	break;
       }
     }
