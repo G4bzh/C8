@@ -186,8 +186,6 @@ int c8_cycle(C8* c8)
     {
       return EXIT_FAILURE;
     }
-
-  *c8->PC = (uint16_t)0x4518;
   
   z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
   nnn = htons(*c8->PC) & 0x0FFF;
@@ -196,9 +194,7 @@ int c8_cycle(C8* c8)
   y = ((kk & 0xF0)>>4);
   x = (uint8_t)((nnn & 0x0F00)>>8);
 
-  printf("0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x \n",htons(*c8->PC),z,nnn,n,kk,y,x);
-
-  switch(z)
+   switch(z)
     {
     case 0x0:
       {
@@ -452,56 +448,3 @@ int c8_cycle(C8* c8)
   return EXIT_SUCCESS;
 }
 
-
-/*
- * Print a hexa font (DEBUG)
- *
- */
-
-
-void print_font(C8* c8, uint8_t n)
-{
-  int j,k;
-  
-  if (n>0xF)
-    {
-      return;
-    }
-  
-  for(j=0;j<C8_FONT_SIZE;j++)
-    {
-      for(k=0;k<C8_FONT_HEIGHT;k++)
-	{
-	  printf("%c", *(c8->fonts+n*C8_FONT_SIZE+j) & (((uint8_t)1)<<(7-k)) ? '*' : ' ');
-	}
-      printf("\n");      
-    }
-
-  return;
-}
-
-
-
-/*
- * Main (DEBUG)
- *
- */
-
-
-int main()
-{
-  C8* c8;
- 
-  c8 = c8_create();
-
-  if (c8_load(c8,"./roms/LOGO") == EXIT_SUCCESS)
-    {
-      printf("ROM Loaded !\n");
-    }
-
-  c8_cycle(c8);
-  
-  c8_delete(c8);
-  
-  return 0;
-}
