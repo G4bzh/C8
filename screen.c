@@ -31,10 +31,7 @@ int screen_init(void)
     }
   
   noecho();
-  printw("C8");
-  refresh();
-  getch();
- 
+  
   return EXIT_SUCCESS;
 }
 
