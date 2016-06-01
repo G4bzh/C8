@@ -37,14 +37,24 @@ int screen_init(void)
 
 
 /*
- * Screen End
+ * De-initialisation
  *
  */
 
 int screen_end(void)
 {
   endwin();
-
   return EXIT_SUCCESS;
 }
-  
+
+
+/*
+ * Clear screen
+ *
+ */
+
+int screen_clear(void)
+{
+  clear();
+  return EXIT_SUCCESS;
+}
