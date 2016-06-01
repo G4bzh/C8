@@ -21,9 +21,6 @@
 #define C8_MEMORY_SIZE      4096 
 #define C8_ROM_SIZE         512  
 
-#define C8_SCREEN_WIDTH     64   /* pixels */
-#define C8_SCREEN_HEIGHT    32   /* pixels */
-
 #define C8_FONTS            16
 #define C8_FONT_SIZE        5   /* bytes */
 #define C8_FONT_WIDTH       8   /* pixels */
