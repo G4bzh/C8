@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <ncurses.h>
 #include "c8.h"
 #include "screen.h"
@@ -57,4 +58,40 @@ int screen_clear(void)
 {
   clear();
   return EXIT_SUCCESS;
+}
+
+
+/*
+ * Set a pixel on screen
+ *
+ */
+
+int screen_set(uint8_t x, uint8_t y)
+{
+  if ( (x >= C8_SCREEN_WIDTH) || (y >= C8_SCREEN_HEIGHT) )
+    {
+      return EXIT_FAILURE;
+    }
+
+  mvaddch(y,x,' '|A_REVERSE);
+
+  return EXIT_SUCCESS;				   
+}
+
+
+/*
+ * Unset a pixel on screen
+ *
+ */
+
+int screen_unset(uint8_t x, uint8_t y)
+{
+  if ( (x >= C8_SCREEN_WIDTH) || (y >= C8_SCREEN_HEIGHT) )
+    {
+      return EXIT_FAILURE;
+    }
+
+  mvaddch(y,x,' ');
+
+  return EXIT_SUCCESS;				   
 }
