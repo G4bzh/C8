@@ -1,7 +1,7 @@
 CFLAGS = -g -Wall
 LDFLAGS = -lncurses
 
-c8: main.o c8.o gfx.o inst/do_0x0.o inst/do_0x1.o inst/do_0x2.o
+c8: main.o c8.o gfx.o inst/do_0x0.o inst/do_0x1.o inst/do_0x2.o inst/do_0x3.o inst/do_0x4.o
 
 c8.o: c8.c c8.h inst/do.h
 
@@ -13,8 +13,11 @@ inst/do_0x1.o: inst/do_0x1.c inst/do.h
 
 inst/do_0x2.o: inst/do_0x2.c inst/do.h
 
-main.o: c8.h gfx.h inst/do.h
+inst/do_0x3.o: inst/do_0x3.c inst/do.h
 
+inst/do_0x4.o: inst/do_0x4.c inst/do.h
+
+main.o: c8.h gfx.h inst/do.h
 
 clean:
 	rm -f c8

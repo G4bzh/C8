@@ -29,6 +29,9 @@ int do_0x00E0(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
       c8->screen[i] = 0;
     }
 
+  /* Next */
+  c8->PC++;
+  
   return EXIT_SUCCESS;
   
 }
