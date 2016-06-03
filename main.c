@@ -11,10 +11,20 @@
 
 int main()
 {
+  C8* c8;
+  int i;
+  
+  c8 = c8_create();
+  
   gfx_init();
   gfx_clear();
-  gfx_set(63,31);
-  gfx_unset(63,31);
+
+  for(i=0;i<C8_SCREEN_SIZE;i++)
+    {
+      c8->screen[i] = i%2?1:0;
+    }
+  c8_render(c8);
+  
   gfx_end();
   return 0;
 }

@@ -95,3 +95,16 @@ int gfx_unset(uint8_t x, uint8_t y)
 
   return EXIT_SUCCESS;				   
 }
+
+
+/*
+ * Render
+ *
+ */
+
+int gfx_render(void)
+{
+  refresh();
+  getch();
+  return EXIT_SUCCESS;
+}

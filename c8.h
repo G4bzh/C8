@@ -39,5 +39,6 @@ C8* c8_create(void);
 int c8_delete(C8*);
 int c8_load(C8*, const char*);
 int c8_cycle(C8*);
+int c8_render(C8*);
 
 #endif

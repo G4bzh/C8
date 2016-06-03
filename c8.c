@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <arpa/inet.h>
+#include "gfx.h"
 #include "c8.h"
 
 
@@ -445,3 +446,29 @@ int c8_cycle(C8* c8)
   return EXIT_SUCCESS;
 }
 
+
+/*
+ * Render screen
+ *
+ */
+
+int c8_render(C8* c8)
+{
+  unsigned int x,y;
+  
+  if (c8 == NULL)
+    {
+      return EXIT_FAILURE;
+    }
+
+  for( x=0 ; x<C8_SCREEN_WIDTH ; x++ )
+    {
+      for( y=0 ; y<C8_SCREEN_HEIGHT ; y++ )
+	{
+	  c8->screen[y*C8_SCREEN_WIDTH+x%C8_SCREEN_WIDTH] ? gfx_set(x,y) : gfx_unset(x,y);
+	}
+    }
+
+  return gfx_render();
+ 
+}
