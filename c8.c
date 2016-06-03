@@ -225,7 +225,8 @@ int c8_cycle(C8* c8)
       }
     case 0x1:
       {
-	printf("JMP 0x%04x\n",nnn);
+        /* JMP */
+	do_0x1nnn(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0x2:
