@@ -1,5 +1,5 @@
 /*
- * Screen
+ * GFX
  *
  */
 
@@ -8,7 +8,7 @@
 #include <stdint.h>
 #include <ncurses.h>
 #include "c8.h"
-#include "screen.h"
+#include "gfx.h"
 
 
 /*
@@ -17,7 +17,7 @@
  */
 
 
-int screen_init(void)
+int gfx_init(void)
 {
   int width, height;
   
@@ -42,7 +42,7 @@ int screen_init(void)
  *
  */
 
-int screen_end(void)
+int gfx_end(void)
 {
   endwin();
   return EXIT_SUCCESS;
@@ -54,7 +54,7 @@ int screen_end(void)
  *
  */
 
-int screen_clear(void)
+int gfx_clear(void)
 {
   clear();
   return EXIT_SUCCESS;
@@ -66,7 +66,7 @@ int screen_clear(void)
  *
  */
 
-int screen_set(uint8_t x, uint8_t y)
+int gfx_set(uint8_t x, uint8_t y)
 {
   if ( (x >= C8_SCREEN_WIDTH) || (y >= C8_SCREEN_HEIGHT) )
     {
@@ -84,7 +84,7 @@ int screen_set(uint8_t x, uint8_t y)
  *
  */
 
-int screen_unset(uint8_t x, uint8_t y)
+int gfx_unset(uint8_t x, uint8_t y)
 {
   if ( (x >= C8_SCREEN_WIDTH) || (y >= C8_SCREEN_HEIGHT) )
     {

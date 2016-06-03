@@ -5,16 +5,16 @@
 
 
 #include "c8.h"
-#include "screen.h"
+#include "gfx.h"
 
 
 
 int main()
 {
-  screen_init();
-  screen_clear();
-  screen_set(63,31);
-  screen_unset(63,31);
-  screen_end();
+  gfx_init();
+  gfx_clear();
+  gfx_set(63,31);
+  gfx_unset(63,31);
+  gfx_end();
   return 0;
 }
