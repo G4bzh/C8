@@ -22,11 +22,11 @@
 typedef struct _C8
 {
   uint8_t V[C8_REGISTERS];          /* General Purpose Registers (Vx) */
-  uint16_t I;                       /* Memory Register */
+  uint16_t* I;                      /* Memory Register */
   uint8_t delay;                    /* Delay Timer Register */
   uint8_t sound;                    /* Sound Timer Register */
   uint16_t* PC;                     /* Program Counter */
-  uint16_t stack[C8_STACK_SIZE];    /* Stack */
+  uint16_t* stack[C8_STACK_SIZE];   /* Stack */
   uint8_t SP;                       /* Stack Pointer */
   uint8_t screen[C8_SCREEN_SIZE];   /* Display */
   uint8_t keyboard[C8_KEYS];        /* Keyboard */

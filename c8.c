@@ -10,6 +10,7 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include "gfx.h"
+#include "inst/do.h"
 #include "c8.h"
 
 
@@ -96,6 +97,9 @@ C8* c8_create(void)
   /* Copy fonts */
   memcpy(c8->fonts, default_fonts, C8_FONTS * C8_FONT_SIZE);
 
+  /* Set SP */
+  c8->SP = C8_STACK_SIZE-1;
+  
   return c8;  
 }
 
@@ -200,12 +204,14 @@ int c8_cycle(C8* c8)
 	  {
 	  case 0x0E0:
 	    {
-	      printf("CLS\n");
+	      /* CLS */
+	      do_0x00E0(c8,nnn,n,x,y,kk);
 	      break;
 	    }
 	  case 0x0EE:
 	    {
-	      printf("RET\n");
+	      /* RET */
+	      do_0x00EE(c8,nnn,n,x,y,kk);
 	      break;
 	    }
 
