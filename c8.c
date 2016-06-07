@@ -231,99 +231,44 @@ int c8_cycle(C8* c8)
       }
     case 0x2:
       {
-	printf("CALL 0x%04x\n",nnn);
+	/* CALL */
+	do_0x2nnn(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0x3:
       {
-	printf("SE V[0x%02x], 0x%02x\n",x,kk);
+	/* SE */
+	do_0x3xkk(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0x4:
       {
-	printf("SNE V[0x%02x], 0x%02x\n",x,kk);
+	/* SNE */
+	do_0x4xkk(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0x5:
       {
-	printf("SE V[0x%02x], V[0x%02x]\n",x,y);
+	/* SE V */
+	do_0x5xy0(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0x6:
       {
-	printf("LD V[0x%02x], 0x%02x\n",x,kk);
+	/* LD */
+	do_0x6xkk(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0x7:
       {
-	printf("ADD V[0x%02x], 0x%02x\n",x,kk);
+	/* ADD */
+	do_0x7xkk(c8,nnn,n,x,y,kk);
 	break;
       }
      case 0x8:
       {
-	switch(n)
-	  {
-	  case 0x0:
-	    {
-	      printf("LD V[0x%02x], V[0x%02x]\n",x,y);
-	      break;
-	    }
-
-	  case 0x1:
-	    {
-	      printf("OR V[0x%02x], V[0x%02x]\n",x,y);
-	      break;
-	    }
-
-	  case 0x2:
-	    {
-	      printf("AND V[0x%02x], V[0x%02x]\n",x,y);
-	      break;
-	    }	    
-
-	  case 0x3:
-	    {
-	      printf("XOR V[0x%02x], V[0x%02x]\n",x,y);
-	      break;
-	    }
-
-	  case 0x4:
-	    {
-	      printf("ADD V[0x%02x], V[0x%02x]\n",x,y);
-	      break;
-	    }	    
-
-	  case 0x5:
-	    {
-	      printf("SUB V[0x%02x], V[0x%02x]\n",x,y);
-	      break;
-	    }
-
-	  case 0x6:
-	    {
-	      printf("SHR V[0x%02x], V[0x%02x]\n",x,y);
-	      break;
-	    }	   
-
-	  case 0x7:
-	    {
-	      printf("SUBN V[0x%02x], V[0x%02x]\n",x,y);
-	      break;
-	    }
-
-	  case 0xE:
-	    {
-	      printf("SHL V[0x%02x], V[0x%02x]\n",x,y);
-	      break;
-	    }
-
-	  default:
-	    {
-	      printf("Unknow 0x8 Instruction\n");
-	      break;
-	    }	    
-	    
-	  }
+	/* Registers Ops */
+	do_0x8xyn(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0x9:
