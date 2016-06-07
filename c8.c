@@ -273,7 +273,8 @@ int c8_cycle(C8* c8)
       }
     case 0x9:
       {
-	printf("SNE V[0x%02x], V[0x%02x]\n",x,y);
+	/* SNE Vx, Vy */
+	do_0x9xy0(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0xA:
