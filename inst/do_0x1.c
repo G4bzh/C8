@@ -11,7 +11,7 @@
 
 
 /*
- *  0x01nnn : JP nnn
+ *  0x1nnn : JP nnn
  *  The interpreter sets the program counter to nnn. 
  */ 
 

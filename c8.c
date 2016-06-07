@@ -279,7 +279,8 @@ int c8_cycle(C8* c8)
       }
     case 0xA:
       {
-	printf("LD I, 0x%04x\n",nnn);
+	/* LD I, nnn */
+	do_0xAnnn(c8,nnn,n,x,y,kk);	
 	break;
       }
     case 0xB:
