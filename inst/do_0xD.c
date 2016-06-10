@@ -23,6 +23,7 @@
 int do_0xDxyn(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t kk)
 {
   uint16_t* ptr;
+  uint8_t byte, color, i, u, v;
   
   if (c8 == NULL)
     {
@@ -34,11 +35,21 @@ int do_0xDxyn(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
       return EXIT_FAILURE;
     }  
 
-#include <stdio.h>
   
-  for(ptr=c8->I; ptr < (uint16_t*)((uint8_t*)c8->I+n); ptr = (uint16_t*)((uint8_t*)ptr+1))
+  for(ptr=c8->I, v=c8->V[y]; ptr < (uint16_t*)((uint8_t*)c8->I+n); ptr = (uint16_t*)((uint8_t*)ptr+1), v++)
     {
-      printf("0x%x: 0x%x\n",(uint32_t)ptr,(uint32_t)*((uint8_t*)ptr));
+      byte = *((uint8_t*)ptr); 
+      for(i=0, u=c8->V[x]; i<sizeof(byte)*8; i++, u++, byte <<= 1 )
+	{   
+	  color =  byte & 0x80 ? 1 : 0 ;
+
+	  if ( !(c8->screen[v*C8_SCREEN_WIDTH+u%C8_SCREEN_WIDTH] ^ color) )
+	    {
+	      c8->V[0xF] = 1;
+	    }
+
+	  c8->screen[v*C8_SCREEN_WIDTH+u%C8_SCREEN_WIDTH] = color;
+	}
     }
 
   

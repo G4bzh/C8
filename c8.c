@@ -189,8 +189,10 @@ int c8_cycle(C8* c8)
       return EXIT_FAILURE;
     }
 
-  *(c8->PC) = (uint16_t)0x05D0;
+  *(c8->PC) = (uint16_t)0x25D5;
   c8->I = (uint16_t*)c8->fonts;
+  c8->V[5] = 50;
+  c8->V[2] = 20;
   
   z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
   nnn = htons(*c8->PC) & 0x0FFF;
