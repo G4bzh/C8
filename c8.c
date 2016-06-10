@@ -291,7 +291,8 @@ int c8_cycle(C8* c8)
       }
     case 0xC:
       {
-	printf("RND V[0x%02x], 0x%02x\n",x,kk); 
+	/* RND */
+	do_0xCxkk(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0xD:

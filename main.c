@@ -3,7 +3,8 @@
  *
  */
 
-
+#include <stdlib.h>
+#include <time.h>
 #include "c8.h"
 #include "gfx.h"
 
@@ -13,6 +14,9 @@ int main()
 {
   C8* c8;
   int i;
+
+  srand (time(NULL));
+
   
   c8 = c8_create();
   
