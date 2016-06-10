@@ -188,6 +188,9 @@ int c8_cycle(C8* c8)
     {
       return EXIT_FAILURE;
     }
+
+  *(c8->PC) = (uint16_t)0x05D0;
+  c8->I = (uint16_t*)c8->fonts;
   
   z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
   nnn = htons(*c8->PC) & 0x0FFF;
@@ -297,7 +300,8 @@ int c8_cycle(C8* c8)
       }
     case 0xD:
       {
-	printf("DRW  V[0x%02x],  V[0x%02x], 0x%02x\n",x,y,n);
+	/* DRW */
+	do_0xDxyn(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0xE:
