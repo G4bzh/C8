@@ -189,10 +189,12 @@ int c8_cycle(C8* c8)
       return EXIT_FAILURE;
     }
 
+  /* DEBUG
   *(c8->PC) = (uint16_t)0x25D5;
-  c8->I = (uint16_t*)c8->fonts;
-  c8->V[5] = 50;
-  c8->V[2] = 20;
+  c8->I = (uint16_t*)(c8->fonts+0xF*C8_FONT_SIZE);
+  c8->V[5] = 63;
+  c8->V[2] = 30;
+  */
   
   z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
   nnn = htons(*c8->PC) & 0x0FFF;
