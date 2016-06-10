@@ -11,7 +11,7 @@
 
 
 /*
- *  0xDxyn
+ *  0xDxyn : Draw
  *  The interpreter reads n bytes from memory, starting at the address stored in I. 
  *  These bytes are then displayed as sprites on screen at coordinates (Vx, Vy). 
  *  Sprites are XORed onto the existing screen. 

@@ -13,8 +13,7 @@
 int main()
 {
   C8* c8;
-  int i;
-
+ 
   srand (time(NULL));
 
   

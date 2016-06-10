@@ -314,13 +314,15 @@ int c8_cycle(C8* c8)
 	  {
 	  case 0x9E:
 	    {
-	      printf("SKP  V[0x%02x]\n",x);
+	      /* SKP  Keyboard,Vx */
+	      do_0xEx9E(c8,nnn,n,x,y,kk);
 	      break;
 	    }
 	    
 	  case 0xA1:
 	    {
-	      printf("SKNP  V[0x%02x]\n",x);
+	      /* SKNP  Keyboard,Vx */
+	      do_0xExA1(c8,nnn,n,x,y,kk);
 	      break;
 	    }
 
