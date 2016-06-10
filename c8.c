@@ -285,7 +285,8 @@ int c8_cycle(C8* c8)
       }
     case 0xB:
       {
-	printf("JP V[0], 0x%04x\n",nnn);	
+	/* JP V0+nnn */
+	do_0xBnnn(c8,nnn,n,x,y,kk);
 	break;
       }
     case 0xC:
