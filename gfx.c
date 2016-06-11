@@ -32,6 +32,8 @@ int gfx_init(void)
     }
   
   noecho();
+  cbreak();
+  nodelay(stdscr,TRUE);
   
   return EXIT_SUCCESS;
 }
@@ -105,6 +107,5 @@ int gfx_unset(uint8_t x, uint8_t y)
 int gfx_render(void)
 {
   refresh();
-  getch();
   return EXIT_SUCCESS;
 }
