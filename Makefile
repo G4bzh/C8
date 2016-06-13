@@ -7,7 +7,7 @@ c8.o: c8.c c8.h inst/do.h
 
 gfx.o: gfx.c gfx.h
 
-keyboard.o: keyboard.c keyboard.h
+keyboard.o: keyboard.c keyboard.h c8.h
 
 inst/do_0x0.o: inst/do_0x0.c inst/do.h
 

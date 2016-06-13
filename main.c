@@ -31,7 +31,7 @@ int main()
 
   c8_render(c8);
 
-  kb_getkey_blocking(c8);
+  kb_getkey(c8,1);
 
   
   gfx_end();

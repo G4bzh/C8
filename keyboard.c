@@ -4,46 +4,82 @@
  */
 
 #include <stdlib.h>
+#include <stdint.h>
 #include <ncurses.h>
+#include "c8.h"
 #include "keyboard.h"
 
-/*
- * Non blocking getkey 
- *
- */
-
-int kb_getkey_nonblocking(C8* c8)
-{
-  if (c8 == NULL)
-    {
-      return EXIT_FAILURE;
-    }
-
-  return EXIT_SUCCESS;
-}
 
 
 
 /*
- * Blocking getkey 
+ * Mapping
+ * 
+ * Original Layout :   +---+---+---+---+
+ *                     | 1 | 2 | 3 | C |
+ *                     +---+---+---+---+
+ *                     | 4 | 5 | 6 | D |
+ *                     +---+---+---+---+
+ *                     | 7 | 8 | 9 | E |
+ *                     +---+---+---+---+
+ *                     | A | 0 | B | F |
+ *                     +---+---+---+---+
+ *
+ */
+
+const char mapping[] = {
+  'v',              /* 0 */
+  '"', '\'','(',    /* 1 2 3 */
+  'e', 'r', 't',    /* 4 5 6 */
+  'd', 'f', 'g',    /* 7 8 9 */
+  'c', 'b',         /* A B */
+  '-',              /* C */
+  'y',              /* D */
+  'h',              /* E */
+  'n'               /* F */
+};
+
+
+/*
+ * Getkey 
  *
  */
 
 
-int kb_getkey_blocking(C8* c8)
+int kb_getkey(C8* c8, uint8_t block)
 {
-  int ch;
+  int ch, i;
   
   if (c8 == NULL)
     {
       return EXIT_FAILURE;
     }
 
-  while ((ch = getch()) == ERR)
+  /* Clear keyboard */
+  for(i=0; i < C8_KEYS; i++)
     {
+      c8->keyboard[i] = 0;
     }
 
-  printw("OK");
+  while ((ch = getch()) == ERR)
+    {
+      /* Exit if non blocking */
+      if (!(block))
+	{
+	  return EXIT_SUCCESS;
+	}
+    }
+
+  /* Search index in mapping array */
+  for( i=0; ( ((char)ch != mapping[i]) && (i < C8_KEYS) ) ; i++ )
+    {}
+
+  /* Update C8 Keyboard */
+  if (i<C8_KEYS)
+    {
+      c8->keyboard[i] = 1;
+    }
+
   
   return EXIT_SUCCESS;  
 }
