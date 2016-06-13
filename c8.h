@@ -40,5 +40,7 @@ int c8_delete(C8*);
 int c8_load(C8*, const char*);
 int c8_cycle(C8*);
 int c8_render(C8*);
+int c8_updateDT(C8*);
+int c8_updateST(C8*);
 
 #endif

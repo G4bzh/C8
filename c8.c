@@ -375,3 +375,51 @@ int c8_render(C8* c8)
   return gfx_render();
  
 }
+
+
+
+/*
+ * Update Delay Timer
+ *
+ */
+
+int c8_updateDT(C8* c8)
+{
+  if (c8 == NULL)
+    {
+      return EXIT_FAILURE;
+    }
+
+  if (c8->DT)
+    {
+      c8->DT--;
+    }
+  
+  return EXIT_SUCCESS;
+}
+
+/*
+ * Update Sound Timer
+ *
+ */
+
+int c8_updateST(C8* c8)
+{
+  if (c8 == NULL)
+    {
+      return EXIT_FAILURE;
+    }
+
+  if (c8->ST)
+    {
+      c8->ST--;
+
+      if (!(c8->ST--))
+	{
+	  gfx_beep(); 
+	}
+    }
+
+  
+  return EXIT_SUCCESS;
+}

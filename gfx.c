@@ -109,3 +109,15 @@ int gfx_render(void)
   refresh();
   return EXIT_SUCCESS;
 }
+
+
+/*
+ * Beep
+ *
+ */
+
+int gfx_beep(void)
+{
+  beep();
+  return EXIT_SUCCESS;
+}
