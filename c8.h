@@ -23,8 +23,8 @@ typedef struct _C8
 {
   uint8_t V[C8_REGISTERS];          /* General Purpose Registers (Vx) */
   uint16_t* I;                      /* Memory Register */
-  uint8_t delay;                    /* Delay Timer Register */
-  uint8_t sound;                    /* Sound Timer Register */
+  uint8_t DT;                       /* Delay Timer Register */
+  uint8_t ST;                       /* Sound Timer Register */
   uint16_t* PC;                     /* Program Counter */
   uint16_t* stack[C8_STACK_SIZE];   /* Stack */
   uint8_t SP;                       /* Stack Pointer */

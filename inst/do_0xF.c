@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include "../c8.h"
+#include "../keyboard.h"
 #include "do.h"
 
 
@@ -33,18 +34,42 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
     case 0x07:
       {
 	/* LD  Vx, DT */
+	c8->V[x] = c8->DT;
 	break;
       }
 
     case 0x0A:
       {
 	/* LD  Vx, K */
+
+	int i;
+
+	/* Getkey, blocking mode */
+	if ( kb_getkey(c8, 1) == EXIT_FAILURE )
+	  {
+	    return EXIT_FAILURE;
+	  }
+	
+	/* Look for the key */
+	for(i=0; (c8->keyboard[i] == 0) && (i < C8_KEYS); i++)
+	  {}
+	
+	if (i >= C8_KEYS)
+	  {
+	    return EXIT_FAILURE;
+	  }
+	else
+	  {
+	    c8->V[x] = i;	    
+	  }
+	
 	break;
       }
 
     case 0x15:
       {
 	/* LD  DT, Vx */
+	c8->DT = c8->V[x];
 	break;
       }
 	    
