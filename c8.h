@@ -13,7 +13,7 @@
 #define C8_SCREEN_SIZE      2048
 #define C8_SCREEN_WIDTH     64   /* pixels */
 #define C8_SCREEN_HEIGHT    32   /* pixels */
-
+#define C8_FONT_SIZE        5   /* bytes */
 #define C8_REGISTERS        16
 #define C8_KEYS             16
 

@@ -24,7 +24,6 @@
 #define C8_ROM_SIZE         512  
 
 #define C8_FONTS            16
-#define C8_FONT_SIZE        5   /* bytes */
 #define C8_FONT_WIDTH       8   /* pixels */
 #define C8_FONT_HEIGHT      5   /* pixels */
 
