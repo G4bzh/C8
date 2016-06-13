@@ -337,69 +337,7 @@ int c8_cycle(C8* c8)
       }
     case 0xF:
       {
-	switch(kk)
-	  {
-	  case 0x07:
-	    {
-	      printf("LD  V[0x%02x], DT\n",x);
-	      break;
-	    }
-
-	  case 0x0A:
-	    {
-	      printf("LD  V[0x%02x], K\n",x);
-	      break;
-	    }
-
-	  case 0x15:
-	    {
-	      printf("LD  DT, V[0x%02x]\n",x);
-	      break;
-	    }
-	    
-	  case 0x18:
-	    {
-	      printf("LD  ST,V[0x%02x]\n",x);
-	      break;
-	    }
-
-	  case 0x1E:
-	    {
-	      printf("ADD I, V[0x%02x]\n",x);
-	      break;
-	    }
-
-	  case 0x29:
-	    {
-	      printf("LD F, V[0x%02x]\n",x);
-	      break;
-	    }
-
-	  case 0x33:
-	    {
-	      printf("LD B, V[0x%02x]\n",x);
-	      break;
-	    }
-
-	  case 0x55:
-	    {
-	      printf("LD [I], V[0x%02x]\n",x);
-	      break;
-	    }	    
-
-	  case 0x65:
-	    {
-	      printf("LD V[0x%02x], [I]\n",x);
-	      break;
-	    }
-
-	  default:
-	    {
-	      printf("Unknow 0xF Instruction\n");
-	      break;
-	    }
-	    
-	  }
+	do_0xFxkk(c8,nnn,n,x,y,kk);
 	break;
       }
     default:
