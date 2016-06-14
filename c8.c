@@ -12,7 +12,7 @@
 #include "gfx.h"
 #include "inst/do.h"
 #include "c8.h"
-
+#include <ncurses.h>
 
 /*
  *  Constants
@@ -97,7 +97,7 @@ C8* c8_create(void)
   memcpy(c8->fonts, default_fonts, C8_FONTS * C8_FONT_SIZE);
 
   /* Set SP */
-  c8->SP = C8_STACK_SIZE-1;
+  c8->SP = 0;
   
   return c8;  
 }
@@ -182,6 +182,7 @@ int c8_cycle(C8* c8)
 {
   uint16_t nnn;
   uint8_t n,x,y,z,kk;
+  int ret;
   
   if (c8==NULL)
     {
@@ -202,7 +203,7 @@ int c8_cycle(C8* c8)
   y = ((kk & 0xF0)>>4);
   x = (uint8_t)((nnn & 0x0F00)>>8);
 
-   switch(z)
+  switch(z)
     {
     case 0x0:
       {
@@ -211,19 +212,37 @@ int c8_cycle(C8* c8)
 	  case 0x0E0:
 	    {
 	      /* CLS */
-	      do_0x00E0(c8,nnn,n,x,y,kk);
+	      ret = do_0x00E0(c8,nnn,n,x,y,kk);
+
+	      if (ret == EXIT_FAILURE)
+		{
+		  printw("0x00E0");
+		  gfx_render();     
+		  for(;;){}
+		}
+
+	      
 	      break;
 	    }
 	  case 0x0EE:
 	    {
 	      /* RET */
-	      do_0x00EE(c8,nnn,n,x,y,kk);
+	      ret = do_0x00EE(c8,nnn,n,x,y,kk);
+
+	      if (ret == EXIT_FAILURE)
+		{
+		  printw("0x00EE");
+		  gfx_render();     
+		  for(;;){}
+		}
+	      
 	      break;
 	    }
 
 	  default:
 	    {
-	      printf("Unknow 0x0 Instruction\n");
+	      printw("Unknow 0x0 Instruction\n");
+	      ret = EXIT_FAILURE;
 	      break;
 	    }	    
 	  }
@@ -232,79 +251,190 @@ int c8_cycle(C8* c8)
     case 0x1:
       {
         /* JMP */
-	do_0x1nnn(c8,nnn,n,x,y,kk);
+	ret = do_0x1nnn(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0x1");
+	    gfx_render();     
+	    for(;;){}
+	  }
+
+	
 	break;
       }
     case 0x2:
       {
 	/* CALL */
-	do_0x2nnn(c8,nnn,n,x,y,kk);
+	ret = do_0x2nnn(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0x2");
+	    gfx_render();     
+	    for(;;){}
+	  }
+
+	
 	break;
       }
     case 0x3:
       {
 	/* SE */
-	do_0x3xkk(c8,nnn,n,x,y,kk);
+	ret = do_0x3xkk(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0x3");
+	    gfx_render();     
+	    for(;;){}
+	  }
+	
 	break;
       }
     case 0x4:
       {
 	/* SNE */
-	do_0x4xkk(c8,nnn,n,x,y,kk);
+	ret = do_0x4xkk(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0x4");
+	    gfx_render();     
+	    for(;;){}
+	  }
+	
 	break;
       }
     case 0x5:
       {
 	/* SE V */
-	do_0x5xy0(c8,nnn,n,x,y,kk);
+	ret = do_0x5xy0(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0x5");
+	    gfx_render();     
+	    for(;;){}
+	  }
+
+	
 	break;
       }
     case 0x6:
       {
 	/* LD */
-	do_0x6xkk(c8,nnn,n,x,y,kk);
+	ret = do_0x6xkk(c8,nnn,n,x,y,kk);
+
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0x6");
+	    gfx_render();     
+	    for(;;){}
+	  }
+	
 	break;
       }
     case 0x7:
       {
 	/* ADD */
-	do_0x7xkk(c8,nnn,n,x,y,kk);
+	ret = do_0x7xkk(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0x7");
+	    gfx_render();     
+	    for(;;){}
+	  }
+	
 	break;
       }
      case 0x8:
       {
 	/* Registers Ops */
-	do_0x8xyn(c8,nnn,n,x,y,kk);
+	ret = do_0x8xyn(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0x8");
+	    gfx_render();     
+	    for(;;){}
+	  }
+
+	
 	break;
       }
     case 0x9:
       {
 	/* SNE Vx, Vy */
-	do_0x9xy0(c8,nnn,n,x,y,kk);
+	ret = do_0x9xy0(c8,nnn,n,x,y,kk);
+
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0x9");
+	    gfx_render();     
+	    for(;;){}
+	  }
+	
 	break;
       }
     case 0xA:
       {
 	/* LD I, nnn */
-	do_0xAnnn(c8,nnn,n,x,y,kk);	
+	ret = do_0xAnnn(c8,nnn,n,x,y,kk);
+
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0xA");
+	    gfx_render();     
+	    for(;;){}
+	  }
+	
 	break;
       }
     case 0xB:
       {
 	/* JP V0+nnn */
-	do_0xBnnn(c8,nnn,n,x,y,kk);
+	ret = do_0xBnnn(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0xB");
+	    gfx_render();     
+	    for(;;){}
+	  }
+	
 	break;
       }
     case 0xC:
       {
 	/* RND */
-	do_0xCxkk(c8,nnn,n,x,y,kk);
+	ret = do_0xCxkk(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0xC");
+	    gfx_render();     
+	    for(;;){}
+	  }
+	
 	break;
       }
     case 0xD:
       {
 	/* DRW */
-	do_0xDxyn(c8,nnn,n,x,y,kk);
+	ret = do_0xDxyn(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0xD");
+	    gfx_render();     
+	    for(;;){}
+	  }
+	
 	break;
       }
     case 0xE:
@@ -314,20 +444,37 @@ int c8_cycle(C8* c8)
 	  case 0x9E:
 	    {
 	      /* SKP  Keyboard,Vx */
-	      do_0xEx9E(c8,nnn,n,x,y,kk);
+	      ret = do_0xEx9E(c8,nnn,n,x,y,kk);
+
+	      if (ret == EXIT_FAILURE)
+		{
+		  printw("0xE09E");
+		  gfx_render();     
+		  for(;;){}
+		}
+	      
 	      break;
 	    }
 	    
 	  case 0xA1:
 	    {
 	      /* SKNP  Keyboard,Vx */
-	      do_0xExA1(c8,nnn,n,x,y,kk);
+	      ret = do_0xExA1(c8,nnn,n,x,y,kk);
+
+	      if (ret == EXIT_FAILURE)
+		{
+		  printw("0xE0A1");
+		  gfx_render();     
+		  for(;;){}
+		}
+	      
 	      break;
 	    }
 
 	  default:
 	    {
-	      printf("Unknow 0xE Instruction\n");
+	      printw("Unknow 0xE Instruction\n");
+	      ret = EXIT_FAILURE;
 	      break;
 	    }
 	    
@@ -336,17 +483,34 @@ int c8_cycle(C8* c8)
       }
     case 0xF:
       {
-	do_0xFxkk(c8,nnn,n,x,y,kk);
+	ret = do_0xFxkk(c8,nnn,n,x,y,kk);
+
+	if (ret == EXIT_FAILURE)
+	  {
+	    printw("0xF");
+	    gfx_render();     
+	    for(;;){}
+	  }
+	
 	break;
       }
     default:
       {
-	printf("Unknow Instruction\n");
+	printw("Unknow Instruction\n");
+	ret = EXIT_FAILURE;
 	break;
       }
     }
-
-  return EXIT_SUCCESS;
+  
+  
+  if (ret == EXIT_FAILURE)
+    {
+      printw("0x00E0");
+      gfx_render();     
+      for(;;){}
+    }
+  
+  return ret;
 }
 
 

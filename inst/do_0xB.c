@@ -23,7 +23,7 @@ int do_0xBnnn(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
       return EXIT_FAILURE;
     }
 
-  c8->PC = (uint16_t*)(c8->memory + c8->V[0]);
+  c8->PC = (uint16_t*)(c8->memory + c8->V[0] + nnn);
 
   return EXIT_SUCCESS;
 }

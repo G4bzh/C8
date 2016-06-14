@@ -55,8 +55,9 @@ int do_0x00EE(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
       return EXIT_FAILURE;
     }
 
-  c8->PC = c8->stack[c8->SP];
   c8->SP--;
+  c8->PC = c8->stack[c8->SP];
+
 
    return EXIT_SUCCESS;
 }
