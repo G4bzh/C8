@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <arpa/inet.h>
+#include "error.h"
 #include "gfx.h"
 #include "inst/do.h"
 #include "c8.h"
@@ -117,10 +118,10 @@ int c8_delete(C8* c8)
       free(c8->fonts);
       free(c8->memory);
       free(c8);
-      return EXIT_SUCCESS;
+      return ERR_SUCCESS;
     }
 
-  return EXIT_FAILURE;
+  return ERR_NULL;
 }
 
 
@@ -136,13 +137,13 @@ int c8_load(C8* c8, const char* filename)
     
   if (c8 == NULL || filename == NULL)
     {
-      return EXIT_FAILURE;
+      return ERR_NULL;
     }
 
   f = fopen(filename,"r");
   if (f == NULL)
     {
-      return EXIT_FAILURE;
+      return ERR_NULL;
     }
 
   /* Get file size */
@@ -154,14 +155,14 @@ int c8_load(C8* c8, const char* filename)
   if ( fsize > (C8_MEMORY_SIZE - C8_START_OFFSET) )
     {
       fclose(f);
-      return EXIT_FAILURE;
+      return ERR_TOOBIG;
     }
   
   /* Load ROM in memory */
   if ( fread(c8->memory+C8_START_OFFSET,fsize,1,f) != 1 )
     {
       fclose(f);
-      return EXIT_FAILURE;
+      return ERR_READFILE;
     }
 
   /* Set PC */
@@ -169,7 +170,7 @@ int c8_load(C8* c8, const char* filename)
   
   fclose(f);  
   
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }
 
 
@@ -186,7 +187,7 @@ int c8_cycle(C8* c8)
   
   if (c8==NULL)
     {
-      return EXIT_FAILURE;
+      return ERR_NULL;
     }
 
   z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
@@ -217,7 +218,7 @@ int c8_cycle(C8* c8)
 
 	  default:
 	    {
-	      ret = EXIT_FAILURE;
+	      ret = ERR_BADINST;
 	      break;
 	    }	    
 	  }
@@ -335,7 +336,7 @@ int c8_cycle(C8* c8)
       }
     default:
       {
-	ret = EXIT_FAILURE;
+	ret = ERR_BADINST;
 	break;
       }
     }
@@ -355,7 +356,7 @@ int c8_render(C8* c8)
   
   if (c8 == NULL)
     {
-      return EXIT_FAILURE;
+      return ERR_NULL;
     }
 
   for( x=0 ; x<C8_SCREEN_WIDTH ; x++ )
@@ -381,7 +382,7 @@ int c8_updateDT(C8* c8)
 {
   if (c8 == NULL)
     {
-      return EXIT_FAILURE;
+      return ERR_NULL;
     }
 
   if (c8->DT)
@@ -389,7 +390,7 @@ int c8_updateDT(C8* c8)
       c8->DT--;
     }
   
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }
 
 
@@ -402,7 +403,7 @@ int c8_updateST(C8* c8)
 {
   if (c8 == NULL)
     {
-      return EXIT_FAILURE;
+      return ERR_NULL;
     }
 
   if (c8->ST)
@@ -417,5 +418,5 @@ int c8_updateST(C8* c8)
     }
 
   
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }

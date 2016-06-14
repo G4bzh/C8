@@ -6,6 +6,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include "../error.h"
 #include "../c8.h"
 #include "do.h"
 
@@ -20,12 +21,12 @@ int do_0xCxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 {
   if (c8 == NULL)
     {
-      return EXIT_FAILURE;
+      return ERR_NULL;
     }
 
   if (x >= C8_REGISTERS)
     {
-      return EXIT_FAILURE;
+      return  ERR_REGOUTOFRANGE;
     }  
 
  
@@ -34,5 +35,5 @@ int do_0xCxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
   /* Next */
   c8->PC++;
   
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }

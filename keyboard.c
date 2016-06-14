@@ -4,8 +4,8 @@
  */
 
 #include <stdlib.h>
-#include <stdint.h>
 #include <ncurses.h>
+#include "error.h"
 #include "c8.h"
 #include "keyboard.h"
 
@@ -52,7 +52,7 @@ int kb_getkey(C8* c8, uint8_t block)
   
   if (c8 == NULL)
     {
-      return EXIT_FAILURE;
+      return ERR_NULL;
     }
 
   /* Clear keyboard */
@@ -66,7 +66,7 @@ int kb_getkey(C8* c8, uint8_t block)
       /* Exit if non blocking */
       if (!(block))
 	{
-	  return EXIT_SUCCESS;
+	  return ERR_SUCCESS;
 	}
     }
 
@@ -81,5 +81,5 @@ int kb_getkey(C8* c8, uint8_t block)
     }
 
   
-  return EXIT_SUCCESS;  
+  return ERR_SUCCESS;  
 }

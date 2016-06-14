@@ -6,6 +6,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include "../error.h"
 #include "../c8.h"
 #include "do.h"
 
@@ -19,10 +20,10 @@ int do_0x1nnn(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 {
   if (c8 == NULL)
     {
-      return EXIT_FAILURE;
+      return ERR_NULL;
     }
 
   c8->PC = (uint16_t*)(c8->memory + nnn);
     
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }

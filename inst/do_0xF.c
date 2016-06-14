@@ -6,6 +6,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include "../error.h"
 #include "../c8.h"
 #include "../keyboard.h"
 #include "do.h"
@@ -21,12 +22,12 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 {
   if (c8 == NULL)
     {
-      return EXIT_FAILURE;
+      return ERR_NULL;
     }
 
   if (x >= C8_REGISTERS) 
     {
-      return EXIT_FAILURE;
+      return  ERR_REGOUTOFRANGE;
     }
 
   switch(kk)
@@ -47,12 +48,12 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 	* All execution stops until a key is pressed, then the value of that key is stored in Vx.
 	*/
 
-	int i;
+	int i,ret;
 
 	/* Getkey, blocking mode */
-	if ( kb_getkey(c8, 1) == EXIT_FAILURE )
+	if ( (ret=kb_getkey(c8, 1)) != ERR_SUCCESS )
 	  {
-	    return EXIT_FAILURE;
+	    return ret;
 	  }
 	
 	/* Look for the key */
@@ -61,7 +62,7 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 	
 	if (i >= C8_KEYS)
 	  {
-	    return EXIT_FAILURE;
+	    return ERR_KEYOUTOFRANGE;
 	  }
 	else
 	  {
@@ -164,7 +165,7 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 
     default:
       {
-	return EXIT_FAILURE;
+	return  ERR_BADINST;
 	break;
       }	    
     }
@@ -172,5 +173,5 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
   /* Next */
   c8->PC++;
   
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }

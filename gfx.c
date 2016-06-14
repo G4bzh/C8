@@ -3,10 +3,9 @@
  *
  */
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <stdint.h>
 #include <ncurses.h>
+#include "error.h"
 #include "c8.h"
 #include "gfx.h"
 
@@ -27,15 +26,14 @@ int gfx_init(void)
   if ( (width <  C8_SCREEN_WIDTH) || (height <  C8_SCREEN_HEIGHT) )
     {
       endwin();
-      printf("Need a %dx%d screen\n",C8_SCREEN_WIDTH,C8_SCREEN_HEIGHT);
-      return EXIT_FAILURE;
+      return ERR_BADDISPLAY;
     }
   
   noecho();
   cbreak();
   nodelay(stdscr,TRUE);
   
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }
 
 
@@ -47,7 +45,7 @@ int gfx_init(void)
 int gfx_end(void)
 {
   endwin();
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }
 
 
@@ -59,7 +57,7 @@ int gfx_end(void)
 int gfx_clear(void)
 {
   clear();
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }
 
 
@@ -72,12 +70,12 @@ int gfx_set(uint8_t x, uint8_t y)
 {
   if ( (x >= C8_SCREEN_WIDTH) || (y >= C8_SCREEN_HEIGHT) )
     {
-      return EXIT_FAILURE;
+      return ERR_COORDOUTOFRANGE;
     }
 
   mvaddch(y,x,' '|A_REVERSE);
 
-  return EXIT_SUCCESS;				   
+  return ERR_SUCCESS;				   
 }
 
 
@@ -90,12 +88,12 @@ int gfx_unset(uint8_t x, uint8_t y)
 {
   if ( (x >= C8_SCREEN_WIDTH) || (y >= C8_SCREEN_HEIGHT) )
     {
-      return EXIT_FAILURE;
+      return ERR_COORDOUTOFRANGE;
     }
 
   mvaddch(y,x,' ');
 
-  return EXIT_SUCCESS;				   
+  return ERR_SUCCESS;				   
 }
 
 
@@ -107,7 +105,7 @@ int gfx_unset(uint8_t x, uint8_t y)
 int gfx_render(void)
 {
   refresh();
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }
 
 
@@ -119,5 +117,5 @@ int gfx_render(void)
 int gfx_beep(void)
 {
   beep();
-  return EXIT_SUCCESS;
+  return ERR_SUCCESS;
 }
