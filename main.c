@@ -27,7 +27,7 @@ int main()
       c8_render(c8);
       c8_updateDT(c8);
       c8_updateST(c8);
-      kb_getkey(c8,1);
+      kb_getkey(c8,0);
     }
 
   gfx_end();

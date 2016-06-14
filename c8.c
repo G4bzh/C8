@@ -12,7 +12,7 @@
 #include "gfx.h"
 #include "inst/do.h"
 #include "c8.h"
-#include <ncurses.h>
+
 
 /*
  *  Constants
@@ -189,13 +189,6 @@ int c8_cycle(C8* c8)
       return EXIT_FAILURE;
     }
 
-  /* DEBUG
-  *(c8->PC) = (uint16_t)0x25D5;
-  c8->I = (uint16_t*)(c8->fonts+0xF*C8_FONT_SIZE);
-  c8->V[5] = 63;
-  c8->V[2] = 30;
-  */
-  
   z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
   nnn = htons(*c8->PC) & 0x0FFF;
   n = (uint8_t)(nnn & 0x000F);
@@ -203,34 +196,7 @@ int c8_cycle(C8* c8)
   y = ((kk & 0xF0)>>4);
   x = (uint8_t)((nnn & 0x0F00)>>8);
 
-  printw("PC = 0x%x ;", htons(*c8->PC) );
-  printw("z = 0x%x ;", z );
-  printw("nnn = 0x%x ;", nnn );
-  printw("n = 0x%x ;", n );
-  printw("kk = 0x%x ;", kk );
-  printw("y = 0x%x ;", y );
-  printw("x = 0x%x \n", x );
-
-  if (c8->I) {printw("I = 0x%x ;", htons(*c8->I));}
-  printw("V0 = 0x%x ;", c8->V[0]);
-  printw("V1 = 0x%x ;", c8->V[1] );
-  printw("V2 = 0x%x ;", c8->V[2] );
-  printw("v3 = 0x%x ;", c8->V[3] );
-  printw("V4 = 0x%x ;", c8->V[4] );
-  printw("V5 = 0x%x ;", c8->V[5] );
-  printw("V6 = 0x%x ;", c8->V[6] );
-  printw("V7 = 0x%x ;", c8->V[7]);
-  printw("V8 = 0x%x ;", c8->V[8] );
-  printw("V9 = 0x%x ;", c8->V[9] );
-  printw("vA = 0x%x ;", c8->V[10] );
-  printw("VB = 0x%x ;", c8->V[11] );
-  printw("VC = 0x%x ;", c8->V[12] );
-  printw("VD = 0x%x ;", c8->V[13] );
-  printw("VE = 0x%x ;", c8->V[14] );
-  printw("VF = 0x%x \n", c8->V[15] );
-
-  
-  switch(z)
+   switch(z)
     {
     case 0x0:
       {
@@ -240,35 +206,17 @@ int c8_cycle(C8* c8)
 	    {
 	      /* CLS */
 	      ret = do_0x00E0(c8,nnn,n,x,y,kk);
-
-	      if (ret == EXIT_FAILURE)
-		{
-		  printw("0x00E0");
-		  gfx_render();     
-		  for(;;){}
-		}
-
-	      
 	      break;
 	    }
 	  case 0x0EE:
 	    {
 	      /* RET */
-	      ret = do_0x00EE(c8,nnn,n,x,y,kk);
-
-	      if (ret == EXIT_FAILURE)
-		{
-		  printw("0x00EE");
-		  gfx_render();     
-		  for(;;){}
-		}
-	      
+	      ret = do_0x00EE(c8,nnn,n,x,y,kk);   
 	      break;
 	    }
 
 	  default:
 	    {
-	      printw("Unknow 0x0 Instruction\n");
 	      ret = EXIT_FAILURE;
 	      break;
 	    }	    
@@ -279,189 +227,78 @@ int c8_cycle(C8* c8)
       {
         /* JMP */
 	ret = do_0x1nnn(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0x1");
-	    gfx_render();     
-	    for(;;){}
-	  }
-
-	
 	break;
       }
     case 0x2:
       {
 	/* CALL */
 	ret = do_0x2nnn(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0x2");
-	    gfx_render();     
-	    for(;;){}
-	  }
-
-	
 	break;
       }
     case 0x3:
       {
 	/* SE */
 	ret = do_0x3xkk(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0x3");
-	    gfx_render();     
-	    for(;;){}
-	  }
-	
 	break;
       }
     case 0x4:
       {
 	/* SNE */
 	ret = do_0x4xkk(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0x4");
-	    gfx_render();     
-	    for(;;){}
-	  }
-	
 	break;
       }
     case 0x5:
       {
 	/* SE V */
 	ret = do_0x5xy0(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0x5");
-	    gfx_render();     
-	    for(;;){}
-	  }
-
-	
 	break;
       }
     case 0x6:
       {
 	/* LD */
 	ret = do_0x6xkk(c8,nnn,n,x,y,kk);
-
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0x6");
-	    gfx_render();     
-	    for(;;){}
-	  }
-	
 	break;
       }
     case 0x7:
       {
 	/* ADD */
 	ret = do_0x7xkk(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0x7");
-	    gfx_render();     
-	    for(;;){}
-	  }
-	
 	break;
       }
      case 0x8:
       {
 	/* Registers Ops */
 	ret = do_0x8xyn(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0x8");
-	    gfx_render();     
-	    for(;;){}
-	  }
-
-	
 	break;
       }
     case 0x9:
       {
 	/* SNE Vx, Vy */
 	ret = do_0x9xy0(c8,nnn,n,x,y,kk);
-
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0x9");
-	    gfx_render();     
-	    for(;;){}
-	  }
-	
 	break;
       }
     case 0xA:
       {
 	/* LD I, nnn */
 	ret = do_0xAnnn(c8,nnn,n,x,y,kk);
-
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0xA");
-	    gfx_render();     
-	    for(;;){}
-	  }
-	
 	break;
       }
     case 0xB:
       {
 	/* JP V0+nnn */
 	ret = do_0xBnnn(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0xB");
-	    gfx_render();     
-	    for(;;){}
-	  }
-	
 	break;
       }
     case 0xC:
       {
 	/* RND */
 	ret = do_0xCxkk(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0xC");
-	    gfx_render();     
-	    for(;;){}
-	  }
-	
 	break;
       }
     case 0xD:
       {
 	/* DRW */
 	ret = do_0xDxyn(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0xD");
-	    gfx_render();     
-	    for(;;){}
-	  }
-	
 	break;
       }
     case 0xE:
@@ -472,14 +309,6 @@ int c8_cycle(C8* c8)
 	    {
 	      /* SKP  Keyboard,Vx */
 	      ret = do_0xEx9E(c8,nnn,n,x,y,kk);
-
-	      if (ret == EXIT_FAILURE)
-		{
-		  printw("0xE09E");
-		  gfx_render();     
-		  for(;;){}
-		}
-	      
 	      break;
 	    }
 	    
@@ -487,20 +316,11 @@ int c8_cycle(C8* c8)
 	    {
 	      /* SKNP  Keyboard,Vx */
 	      ret = do_0xExA1(c8,nnn,n,x,y,kk);
-
-	      if (ret == EXIT_FAILURE)
-		{
-		  printw("0xE0A1");
-		  gfx_render();     
-		  for(;;){}
-		}
-	      
 	      break;
 	    }
 
 	  default:
 	    {
-	      printw("Unknow 0xE Instruction\n");
 	      ret = EXIT_FAILURE;
 	      break;
 	    }
@@ -511,33 +331,16 @@ int c8_cycle(C8* c8)
     case 0xF:
       {
 	ret = do_0xFxkk(c8,nnn,n,x,y,kk);
-
-	if (ret == EXIT_FAILURE)
-	  {
-	    printw("0xF");
-	    gfx_render();     
-	    for(;;){}
-	  }
-	
 	break;
       }
     default:
       {
-	printw("Unknow Instruction\n");
 	ret = EXIT_FAILURE;
 	break;
       }
     }
-  
-  
-  if (ret == EXIT_FAILURE)
-    {
-      printw("0x00E0");
-      gfx_render();     
-      for(;;){}
-    }
-  
-  return ret;
+
+   return ret;
 }
 
 
