@@ -166,9 +166,11 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
       {
 	return EXIT_FAILURE;
 	break;
-      }
-	    
-    }  
+      }	    
+    }
+
+  /* Next */
+  c8->PC++;
   
   return EXIT_SUCCESS;
 }
