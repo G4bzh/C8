@@ -18,7 +18,7 @@ int main()
   srand (time(NULL));
   
   c8 = c8_create();
-  c8_load(c8,"roms/LOGO");
+  c8_load(c8,"roms/INVADERS");
   gfx_init();
 
   while (c8_cycle(c8) == EXIT_SUCCESS)
