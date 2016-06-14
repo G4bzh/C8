@@ -9,7 +9,7 @@
 #include "gfx.h"
 #include "keyboard.h"
 
-
+#include <ncurses.h>
 
 int main()
 {
@@ -23,10 +23,11 @@ int main()
 
   while (c8_cycle(c8) == EXIT_SUCCESS)
     {
+      
       c8_render(c8);
       c8_updateDT(c8);
       c8_updateST(c8);
-      kb_getkey(c8,0);
+      kb_getkey(c8,1);
     }
 
   gfx_end();

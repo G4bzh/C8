@@ -203,6 +203,33 @@ int c8_cycle(C8* c8)
   y = ((kk & 0xF0)>>4);
   x = (uint8_t)((nnn & 0x0F00)>>8);
 
+  printw("PC = 0x%x ;", htons(*c8->PC) );
+  printw("z = 0x%x ;", z );
+  printw("nnn = 0x%x ;", nnn );
+  printw("n = 0x%x ;", n );
+  printw("kk = 0x%x ;", kk );
+  printw("y = 0x%x ;", y );
+  printw("x = 0x%x \n", x );
+
+  if (c8->I) {printw("I = 0x%x ;", htons(*c8->I));}
+  printw("V0 = 0x%x ;", c8->V[0]);
+  printw("V1 = 0x%x ;", c8->V[1] );
+  printw("V2 = 0x%x ;", c8->V[2] );
+  printw("v3 = 0x%x ;", c8->V[3] );
+  printw("V4 = 0x%x ;", c8->V[4] );
+  printw("V5 = 0x%x ;", c8->V[5] );
+  printw("V6 = 0x%x ;", c8->V[6] );
+  printw("V7 = 0x%x ;", c8->V[7]);
+  printw("V8 = 0x%x ;", c8->V[8] );
+  printw("V9 = 0x%x ;", c8->V[9] );
+  printw("vA = 0x%x ;", c8->V[10] );
+  printw("VB = 0x%x ;", c8->V[11] );
+  printw("VC = 0x%x ;", c8->V[12] );
+  printw("VD = 0x%x ;", c8->V[13] );
+  printw("VE = 0x%x ;", c8->V[14] );
+  printw("VF = 0x%x \n", c8->V[15] );
+
+  
   switch(z)
     {
     case 0x0:
