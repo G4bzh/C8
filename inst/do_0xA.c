@@ -23,7 +23,7 @@ int do_0xAnnn(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
       return ERR_NULL;
     }
 
-  c8->I = (uint16_t*)(c8->memory + nnn);
+  c8->I = c8->memory + nnn;
 
   /* Next */
   c8->PC++;

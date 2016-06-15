@@ -98,7 +98,7 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 	 * The values of I and Vx are added, and the results are stored in I.
 	 */
 	
-	c8->I = (uint16_t*)((uint8_t*)c8->I + c8->V[x]);
+	c8->I += c8->V[x];
 	break;
       }
 
@@ -108,7 +108,7 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 	 * The value of I is set to the location for the hexadecimal font sprite corresponding to the value of Vx.
 	 */
 	
-	c8->I = (uint16_t*)(c8->fonts+c8->V[x]*C8_FONT_SIZE);
+	c8->I = c8->fonts+c8->V[x]*C8_FONT_SIZE;
 	break;
       }
 
@@ -123,9 +123,9 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 	
 	tmp = c8->V[x]%100;
 
-	*((uint8_t*)c8->I) = c8->V[x]/100;
-	*((uint8_t*)c8->I+1) = tmp/10;
-	*((uint8_t*)c8->I+2) = tmp % 10;
+	*(c8->I) = c8->V[x]/100;
+	*(c8->I+1) = tmp/10;
+	*(c8->I+2) = tmp % 10;
 	
 	break;
       }
@@ -141,7 +141,7 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 
 	for( i=0; i<x; i++)
 	  {
-	    *((uint8_t*)c8->I+i) = c8->V[i];
+	    *(c8->I+i) = c8->V[i];
 	  }
 	
 	break;
@@ -157,7 +157,7 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 
 	for( i=0; i<x; i++)
 	  {
-	    c8->V[i] = *((uint8_t*)c8->I+i);
+	    c8->V[i] = *(c8->I+i);
 	  }
 	
 	break;
