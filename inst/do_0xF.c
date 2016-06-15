@@ -35,8 +35,8 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
     case 0x07:
       {
 	/* LD  Vx, DT 
-	* The value of DT is placed into Vx.
-	*/
+	 * The value of DT is placed into Vx.
+	 */
 	
 	c8->V[x] = c8->DT;
 	break;
@@ -45,8 +45,8 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
     case 0x0A:
       {
 	/* LD  Vx, K 
-	* All execution stops until a key is pressed, then the value of that key is stored in Vx.
-	*/
+	 * All execution stops until a key is pressed, then the value of that key is stored in Vx.
+	 */
 
 	int i,ret;
 

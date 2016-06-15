@@ -411,7 +411,7 @@ int c8_updateST(C8* c8)
       c8->ST--;
 
       /* Beep if we reach 0 */
-      if (!(c8->ST--))
+      if (!(c8->ST))
 	{
 	  gfx_beep(); 
 	}

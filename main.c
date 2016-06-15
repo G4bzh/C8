@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 #include "error.h"
 #include "c8.h"
 #include "gfx.h"
@@ -38,11 +39,11 @@ int main()
 
   while ((ret=c8_cycle(c8)) == ERR_SUCCESS)
     {
-      dbg_run(c8,1);      
+      dbg_run(c8,0);      
       c8_render(c8);
       c8_updateDT(c8);
       c8_updateST(c8);
-      kb_getkey(c8,0);
+      kb_getkey(c8,1);
     }
 
   gfx_end();
