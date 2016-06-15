@@ -85,6 +85,7 @@ C8* c8_create(void)
       free(c8);
       return NULL;
     }
+  memset(c8->memory,0,C8_MEMORY_SIZE*sizeof(uint8_t));
 
   /* Allocate fonts */
   c8->fonts = (uint8_t*)malloc( C8_FONTS * C8_FONT_SIZE * sizeof(uint8_t));
@@ -96,7 +97,7 @@ C8* c8_create(void)
     }
   
   /* Copy fonts */
-  memcpy(c8->fonts, default_fonts, C8_FONTS * C8_FONT_SIZE);
+  memcpy(c8->fonts, default_fonts, C8_FONTS * C8_FONT_SIZE * sizeof(uint8_t));
 
   /* Set SP */
   c8->SP = 0;
