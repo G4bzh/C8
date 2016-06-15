@@ -48,6 +48,7 @@ const char mapping[] = {
 
 int kb_getkey(C8* c8, uint8_t block)
 {
+    
   int ch, i;
   
   if (c8 == NULL)

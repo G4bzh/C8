@@ -69,7 +69,8 @@ uint8_t default_fonts[] = {
 C8* c8_create(void)
 {
   C8* c8;
-
+  int i;
+  
   /* Allocate structure */
   c8 = (C8*)malloc(sizeof(C8));
   if (c8 == NULL)
@@ -99,6 +100,32 @@ C8* c8_create(void)
 
   /* Set SP */
   c8->SP = 0;
+
+  /* Nullify */
+  for(i=0; i<C8_REGISTERS; i++)
+    {
+      c8->V[i] = 0;
+    }
+
+  c8->DT = 0;
+  c8->ST = 0;
+  c8->PC = NULL;
+  c8->I = NULL;
+
+  for(i=0; i<C8_STACK_SIZE; i++)
+    {
+      c8->stack[i] = NULL;
+    }
+
+  for(i=0; i<C8_KEYS; i++)
+    {
+      c8->keyboard[i] = 0;
+    }
+
+   for(i=0; i<C8_SCREEN_SIZE; i++)
+    {
+      c8->screen[i] = 0;
+    } 
   
   return c8;  
 }
