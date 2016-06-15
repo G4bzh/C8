@@ -363,7 +363,7 @@ int c8_render(C8* c8)
     {
       for( y=0 ; y<C8_SCREEN_HEIGHT ; y++ )
 	{
-	  c8->screen[y*C8_SCREEN_WIDTH+x%C8_SCREEN_WIDTH] ? gfx_set(x,y) : gfx_unset(x,y);
+	  c8->screen[y*C8_SCREEN_WIDTH+x] ? gfx_set(x,y) : gfx_unset(x,y);
 	}
     }
 

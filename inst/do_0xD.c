@@ -48,14 +48,13 @@ int do_0xDxyn(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 
 	  /* Modulos ensure wrapping */
 	  c8->screen[(v%C8_SCREEN_HEIGHT)*C8_SCREEN_WIDTH+u%C8_SCREEN_WIDTH] ^= color;
-
+	  
+	  
 	  /* Set collision */
 	  if ( !(c8->screen[(v%C8_SCREEN_HEIGHT)*C8_SCREEN_WIDTH+u%C8_SCREEN_WIDTH]) )
 	    {
 	      c8->V[0xF] = 1;
 	    }
-
-
 	}
     }
 
