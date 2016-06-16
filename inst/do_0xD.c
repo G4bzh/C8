@@ -24,7 +24,7 @@
 int do_0xDxyn(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t kk)
 {
   uint8_t* ptr;
-  uint8_t byte, color, i, u, v;
+  uint8_t byte, color, prev,i, u, v;
   
   if (c8 == NULL)
     {
@@ -47,11 +47,12 @@ int do_0xDxyn(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 	  color =  byte & 0x80 ? 1 : 0 ;
 
 	  /* Modulos ensure wrapping */
+	  prev = c8->screen[(v%C8_SCREEN_HEIGHT)*C8_SCREEN_WIDTH+u%C8_SCREEN_WIDTH];
 	  c8->screen[(v%C8_SCREEN_HEIGHT)*C8_SCREEN_WIDTH+u%C8_SCREEN_WIDTH] ^= color;
 	  
 	  
 	  /* Set collision */
-	  if ( !(c8->screen[(v%C8_SCREEN_HEIGHT)*C8_SCREEN_WIDTH+u%C8_SCREEN_WIDTH]) )
+	  if ( (!(c8->screen[(v%C8_SCREEN_HEIGHT)*C8_SCREEN_WIDTH+u%C8_SCREEN_WIDTH])) && prev )
 	    {
 	      c8->V[0xF] = 1;
 	    }
