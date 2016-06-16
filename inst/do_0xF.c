@@ -135,6 +135,7 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 	/* LD [I], Vx 
 	 * The interpreter copies the values of registers V0 through Vx into memory, 
 	 * starting at the address in I.
+	 * I is set to I + X + 1 after operatio
 	 */
 
 	uint8_t i;
@@ -144,7 +145,7 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 	    *(c8->I+i) = c8->V[i];
 	  }
 
-	//c8->I += i+1;
+	c8->I += i;
 	
 	break;
       }	    
@@ -153,6 +154,7 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
       {
 	/* LD Vx, [I]
 	 * The interpreter reads values from memory starting at location I into registers V0 through Vx.
+	 * I is set to I + X + 1 after operation
 	 */
 
 	uint8_t i;
@@ -162,7 +164,7 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 	    c8->V[i] = *(c8->I+i);
 	  }
 
-	//c8->I += i+1;
+	c8->I += i;
 	
 	break;
       }
