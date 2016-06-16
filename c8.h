@@ -30,6 +30,7 @@ typedef struct _C8
   uint8_t SP;                       /* Stack Pointer */
   uint8_t screen[C8_SCREEN_SIZE];   /* Display */
   uint8_t keyboard[C8_KEYS];        /* Keyboard */
+  uint8_t keydown;                  /* Key down flag */
   uint8_t* fonts;                   /* Hexa fonts */
   uint8_t* memory;                  /* RAM */
 } C8;

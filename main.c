@@ -39,7 +39,7 @@ int main()
 
   while ((ret=c8_cycle(c8)) == ERR_SUCCESS)
     {
-      dbg_run(c8,0);      
+      // dbg_run(c8,0);      
       c8_render(c8);
       c8_updateDT(c8);
       c8_updateST(c8);

@@ -122,6 +122,8 @@ C8* c8_create(void)
       c8->keyboard[i] = 0;
     }
 
+  c8->keydown = 0;
+
    for(i=0; i<C8_SCREEN_SIZE; i++)
     {
       c8->screen[i] = 0;

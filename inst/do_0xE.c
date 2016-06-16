@@ -38,6 +38,8 @@ int do_0xEx9E(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
   if ( (c8->keyboard[c8->V[x]]) )
     {
       c8->PC++;
+      /* Keydown treated */
+      c8->keydown = 0;
     }
   
   /* Next */

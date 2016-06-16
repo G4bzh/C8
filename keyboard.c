@@ -57,11 +57,13 @@ int kb_getkey(C8* c8, uint8_t block)
     }
 
   /* Clear keyboard */
-  for(i=0; i < C8_KEYS; i++)
+  if (! (c8->keydown) )
     {
-      c8->keyboard[i] = 0;
+      for(i=0; i < C8_KEYS; i++)
+	{
+	  c8->keyboard[i] = 0;
+	}
     }
-
 
   timeout( block ? -1 : 5 );
   ch = getch();
@@ -74,6 +76,7 @@ int kb_getkey(C8* c8, uint8_t block)
   if (i<C8_KEYS)
     {
       c8->keyboard[i] = 1;
+      c8->keydown = 1;
     }
 
   
