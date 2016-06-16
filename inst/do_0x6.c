@@ -28,10 +28,9 @@ int do_0x6xkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
       return ERR_REGOUTOFRANGE;
     }  
 
-  
+ 
   c8->V[x] = kk;
-  
-
+ 
   /* Next */
   c8->PC++;
   

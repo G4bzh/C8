@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <arpa/inet.h>
 #include "error.h"
 #include "gfx.h"
 #include "inst/do.h"
@@ -210,7 +209,7 @@ int c8_load(C8* c8, const char* filename)
 int c8_cycle(C8* c8)
 {
   uint16_t nnn;
-  uint8_t n,x,y,z,kk;
+  uint8_t n,x,y,z,kk,PC0,PC1;
   int ret;
   
   if (c8==NULL)
@@ -218,13 +217,30 @@ int c8_cycle(C8* c8)
       return ERR_NULL;
     }
 
-  z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12);
-  nnn = htons(*c8->PC) & 0x0FFF;
-  n = (uint8_t)(nnn & 0x000F);
-  kk = (uint8_t)(nnn & 0x00FF);
-  y = ((kk & 0xF0)>>4);
-  x = (uint8_t)((nnn & 0x0F00)>>8);
+  /* z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12); */
+  /* nnn = htons(*c8->PC) & 0x0FFF; */
+  /* n = (uint8_t)(nnn & 0x000F); */
+  /* kk = (uint8_t)(nnn & 0x00FF); */
+  /* y = ((kk & 0xF0)>>4); */
+  /* x = (uint8_t)((nnn & 0x0F00)>>8); */
 
+  /* z = (*((uint8_t*)(c8->PC))+1)>>4; */
+  /* nnn = ( (uint16_t)(*((uint8_t*)c8->PC)) << 8 | ((uint16_t)(*(((uint8_t*)c8->PC)+1))) ) & 0xFFF; */
+  /* n = *(((uint8_t*)c8->PC)+1) & 0xF; */
+  /* kk = *((uint8_t*)(c8->PC)+1); */
+  /* y = (*((uint8_t*)(c8->PC)+1)) >> 4; */
+  /* x = *((uint8_t*)(c8->PC)) & 0xF; */
+
+  PC0 = *((uint8_t*)(c8->PC));
+  PC1 = *((uint8_t*)(c8->PC)+1);
+  
+  z = (PC0 >> 4) & 0xF;
+  nnn = ( (uint16_t)PC0 << 8 | (uint16_t)PC1 )  & (uint16_t)0xFFF;
+  n = PC1 & 0x0F;
+  kk = PC1 & 0xFF;
+  y = (PC1 >> 4) &0xF;
+  x = PC0 & 0x0F;
+  
    switch(z)
     {
     case 0x0:
@@ -233,7 +249,7 @@ int c8_cycle(C8* c8)
 	  {
 	  case 0x0E0:
 	    {
-	      /* CLS */
+ 	      /* CLS */
 	      ret = do_0x00E0(c8,nnn,n,x,y,kk);
 	      break;
 	    }
