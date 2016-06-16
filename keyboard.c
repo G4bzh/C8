@@ -65,7 +65,7 @@ int kb_getkey(C8* c8, uint8_t block)
 	}
     }
 
-  timeout( block ? -1 : 5 );
+  timeout( block ? -1 : 1 );
   ch = getch();
 
   /* Search index in mapping array */
