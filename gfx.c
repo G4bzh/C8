@@ -31,8 +31,9 @@ int gfx_init(void)
   
   noecho();
   cbreak();
-  nodelay(stdscr,TRUE);
-  
+  curs_set(0);
+
+
   return ERR_SUCCESS;
 }
 
