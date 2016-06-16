@@ -139,10 +139,12 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 
 	uint8_t i;
 
-	for( i=0; i<x; i++)
+	for( i=0; i<=x; i++)
 	  {
 	    *(c8->I+i) = c8->V[i];
 	  }
+
+	//c8->I += i+1;
 	
 	break;
       }	    
@@ -155,10 +157,12 @@ int do_0xFxkk(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 
 	uint8_t i;
 
-	for( i=0; i<x; i++)
+	for( i=0; i<=x; i++)
 	  {
 	    c8->V[i] = *(c8->I+i);
 	  }
+
+	//c8->I += i+1;
 	
 	break;
       }
