@@ -121,7 +121,6 @@ C8* c8_create(void)
     {
       c8->keyboard[i] = 0;
     }
-
   c8->keydown = 0;
 
    for(i=0; i<C8_SCREEN_SIZE; i++)
@@ -129,7 +128,8 @@ C8* c8_create(void)
       c8->screen[i] = 0;
     } 
    c8->draw = 0;
-  return c8;  
+
+   return c8;  
 }
 
 
@@ -219,19 +219,6 @@ int c8_cycle(C8* c8)
       return ERR_NULL;
     }
 
-  /* z = (uint8_t)((htons(*c8->PC) & 0xF000)>>12); */
-  /* nnn = htons(*c8->PC) & 0x0FFF; */
-  /* n = (uint8_t)(nnn & 0x000F); */
-  /* kk = (uint8_t)(nnn & 0x00FF); */
-  /* y = ((kk & 0xF0)>>4); */
-  /* x = (uint8_t)((nnn & 0x0F00)>>8); */
-
-  /* z = (*((uint8_t*)(c8->PC))+1)>>4; */
-  /* nnn = ( (uint16_t)(*((uint8_t*)c8->PC)) << 8 | ((uint16_t)(*(((uint8_t*)c8->PC)+1))) ) & 0xFFF; */
-  /* n = *(((uint8_t*)c8->PC)+1) & 0xF; */
-  /* kk = *((uint8_t*)(c8->PC)+1); */
-  /* y = (*((uint8_t*)(c8->PC)+1)) >> 4; */
-  /* x = *((uint8_t*)(c8->PC)) & 0xF; */
 
   PC0 = *((uint8_t*)(c8->PC));
   PC1 = *((uint8_t*)(c8->PC)+1);
