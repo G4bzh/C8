@@ -56,15 +56,6 @@ int kb_getkey(C8* c8, uint8_t block)
       return ERR_NULL;
     }
 
-  /* Clear keyboard */
-  if (! (c8->keydown) )
-    {
-      for(i=0; i < C8_KEYS; i++)
-	{
-	  c8->keyboard[i] = 0;
-	}
-    }
-
   timeout( block ? -1 : 1 );
   ch = getch();
 

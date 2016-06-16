@@ -58,7 +58,7 @@ int do_0xDxyn(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 	}
     }
 
-  
+  c8->draw = 1;
   /* Next */
   c8->PC++;
   

@@ -128,7 +128,7 @@ C8* c8_create(void)
     {
       c8->screen[i] = 0;
     } 
-  
+   c8->draw = 0;
   return c8;  
 }
 

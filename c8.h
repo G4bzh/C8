@@ -29,6 +29,7 @@ typedef struct _C8
   uint16_t* stack[C8_STACK_SIZE];   /* Stack */
   uint8_t SP;                       /* Stack Pointer */
   uint8_t screen[C8_SCREEN_SIZE];   /* Display */
+  uint8_t draw;                     /* Draw flag */
   uint8_t keyboard[C8_KEYS];        /* Keyboard */
   uint8_t keydown;                  /* Key down flag */
   uint8_t* fonts;                   /* Hexa fonts */
