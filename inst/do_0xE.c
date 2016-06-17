@@ -43,7 +43,7 @@ int do_0xEx9E(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 
       /* Keydown processed */
       c8->keydown = 0;
-
+      
       /* Clear Keyboard */
       for(i=0; i < C8_KEYS; i++)
 	{
@@ -65,6 +65,8 @@ int do_0xEx9E(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
 
 int do_0xExA1(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t kk)
 {
+  uint8_t i;
+  
   if (c8 == NULL)
     {
       return ERR_NULL;
@@ -80,11 +82,16 @@ int do_0xExA1(C8* c8, uint16_t nnn,  uint8_t n, uint8_t  x, uint8_t y, uint8_t k
       return ERR_KEYOUTOFRANGE;
     }  
 
+  /* Keydown processed */
+  c8->keydown = 0;
+  
   /* Skip */
   if ( !(c8->keyboard[c8->V[x]]) )
     {
-      c8->PC++; 
+      c8->PC++;
     }
+
+  c8->keyboard[c8->V[x]] = 0;
   
   /* Next */
   c8->PC++;

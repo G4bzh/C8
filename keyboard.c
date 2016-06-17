@@ -56,20 +56,24 @@ int kb_getkey(C8* c8, uint8_t block)
       return ERR_NULL;
     }
 
-  timeout( block ? -1 : 1 );
-  ch = getch();
-
-  /* Search index in mapping array */
-  for( i=0; ( ((char)ch != mapping[i]) && (i < C8_KEYS) ) ; i++ )
-    {}
-
-  /* Update C8 Keyboard */
-  if (i<C8_KEYS)
+  if ( !(c8->keydown) )
     {
-      c8->keyboard[i] = 1;
-      c8->keydown = 1;
+      
+      timeout( block ? -1 : 1 );
+      ch = getch();
+      
+      /* Search index in mapping array */
+      for( i=0; ( ((char)ch != mapping[i]) && (i < C8_KEYS) ) ; i++ )
+	{}
+      
+      /* Update C8 Keyboard */
+      if (i<C8_KEYS)
+	{
+	  c8->keyboard[i] = 1;
+	  c8->keydown = 1;
+	}
+  
     }
-
   
   return ERR_SUCCESS;  
 }
